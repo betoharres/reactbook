@@ -52,7 +52,7 @@ var Category = React.createClass({
           <option value="">Select a Category</option>
           { categories }
         </select>
-      </div>  
+      </div>
     );
 
   }

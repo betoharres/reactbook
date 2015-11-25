@@ -6,5 +6,5 @@ var categories = [
   { id: 2, name: 'Movies' },
   { id: 3, name: 'Books' }
 ];
-  
+
 module.exports = categories;
