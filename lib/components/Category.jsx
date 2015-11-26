@@ -20,6 +20,7 @@ var Category = React.createClass({
     Store.addChangeListener(this._onChange);
   },
 
+  // Good place to call API
   componentDidMount: function () {
     ActionCreator.getCategories();
   },
