@@ -3,16 +3,18 @@
 var React = require('react');
 var Store = require('../stores/Store');
 var ActionCreator = require('../actions/ActionCreator');
+var ENTER_KEY_CODE = 13;
 
 var Category = React.createClass({
 
-  handleChange: function (e) {
+  // handleChange: function (e) {
     //this.transitionTo('/products/' + e.target.value);
-  },
+  // },
 
   getInitialState: function () {
     return {
-      categories: []
+      categories: [],
+      text: ''
     };
   },
 
@@ -30,9 +32,21 @@ var Category = React.createClass({
   },
 
   _onChange: function () {
+    this.setState({text: event.target.value});
     this.setState({
       categories: Store.getCategories()
     });
+  },
+
+  _onKeyDown: function (event, value) {
+    if (event.keyCode == ENTER_KEY_CODE){
+      event.preventDefault();
+      var text = this.state.text.trim();
+      if (text){
+        ActionCreator.sendText(text);
+      }
+      this.setState({text: '', categories: Store.getCategories()});
+    }
   },
 
   /* jshint ignore:start */
@@ -41,18 +55,21 @@ var Category = React.createClass({
 
     if (this.state.categories) {
       categories = this.state.categories.map(function (category) {
-        return <option key={ category.id }
-            value={ category.name.toLowerCase() }>
-            { category.name }</option>;
+        return <li key={ category.id }>{ category.name }</li>;
       });
     }
 
     return (
       <div>
-        <select name="category" onChange={ this.handleChange }>
-          <option value="">Select a Category</option>
-          { categories }
-        </select>
+        <input
+        ref="newText"
+        type="text"
+        value={this.state.text}
+        onChange={this._onChange}
+        onKeyDown={this._onKeyDown}
+        autoFocus={true}
+        />
+        { categories }
       </div>
     );
 
