@@ -7,10 +7,6 @@ var ENTER_KEY_CODE = 13;
 
 var Category = React.createClass({
 
-  // handleChange: function (e) {
-    //this.transitionTo('/products/' + e.target.value);
-  // },
-
   getInitialState: function () {
     return {
       categories: [],
